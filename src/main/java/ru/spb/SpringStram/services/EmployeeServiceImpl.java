@@ -7,34 +7,34 @@ import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employees = new ArrayList<>();
+    private final Map<String, Employee> employees = new HashMap<>();
 
     public EmployeeServiceImpl() {
-        employees.add(new Employee("Andrey", 10000, 3));
-        employees.add(new Employee("Ivan", 10001, 1));
-        employees.add(new Employee("Pavel", 10002, 2));
-        employees.add(new Employee("Sergey", 10003, 3));
-        employees.add(new Employee("Oleg", 10004, 4));
-        employees.add(new Employee("Igor", 10005, 5));
-        employees.add(new Employee("Mike", 10006, 1));
-        employees.add(new Employee("Olga", 10007, 5));
-        employees.add(new Employee("Sveta", 10008, 2));
-        employees.add(new Employee("Lena", 10009, 3));
+        employees.put("Andrey", new Employee("Andrey", 10000, 3));
+        employees.put("Ivan", new Employee("Ivan", 10001, 1));
+        employees.put("Pavel", new Employee("Pavel", 10002, 2));
+        employees.put("Sergey", new Employee("Sergey", 10003, 3));
+        employees.put("Oleg", new Employee("Oleg", 10004, 4));
+        employees.put("Igor", new Employee("Igor", 10005, 5));
+        employees.put("Mike", new Employee("Mike", 10006, 1));
+        employees.put("Olga", new Employee("Olga", 10007, 5));
+        employees.put("Sveta", new Employee("Sveta", 10008, 2));
+        employees.put("Lena", new Employee("Lena", 10009, 3));
     }
 
     public String addEmployee(String name, Integer salary, Integer department) {
-        employees.add(new Employee(name, salary, department));
+        employees.put(name, new Employee(name, salary, department));
         return "Done for " + name;
     }
 
     public List<Employee> getEmployees() {
-        return employees.stream()
+        return employees.values().stream()
                 .sorted(Comparator.comparing(Employee::getDepartment))
                 .toList();
     }
 
     public List<Employee> getEmployeesByDepartment(Integer department) {
-        return employees.stream()
+        return employees.values().stream()
                 .filter(e -> Objects.equals(e.getDepartment(), department))
                 .toList();
     }
